@@ -32,7 +32,7 @@ public class StockController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById")
     public ResponseEntity<?> readStockQuoteById(
             @RequestParam("id") String id
     ){

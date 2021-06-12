@@ -74,13 +74,43 @@ public class StockControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get("/stock?id=vale5")
+                        .get("/stock/findById?id=vale5")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200));
     }
 
     @Test
+    public void shouldNotReturnStockById() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get("/stock/findById?id=vale10")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.content().string(""));
+    }
+
+    @Test
     public void shouldPostStock() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/stock")
+                        .content("{" +
+                                " \"id\": \"vale5\"," +
+                                " \"quotes\":" +
+                                " {" +
+                                " \"2019-01-01\" : \"10\"," +
+                                " \"2019-01-02\" : \"11\"," +
+                                " \"2019-01-03\" : \"14\"" +
+                                " }" +
+                                "} ")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(200));
+    }
+
+    @Test
+    public void shouldFailPostStock() throws Exception {
         stock.setStockQuoteList(null);
 
         mockMvc.perform(
@@ -88,7 +118,7 @@ public class StockControllerTest {
                         .post("/stock")
                         .content(stock.toString())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().is(200));
+                .andExpect(MockMvcResultMatchers.status().is(400));
     }
 
 
