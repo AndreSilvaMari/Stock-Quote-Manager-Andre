@@ -4,6 +4,7 @@ import com.inatel.stockquotemanager.model.Stock;
 import com.inatel.stockquotemanager.service.StockManagerService;
 import com.inatel.stockquotemanager.service.StockQuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class StockController {
             return ResponseEntity.ok().body("Stock Quote registered successfully!");
         }catch(Exception e){
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
