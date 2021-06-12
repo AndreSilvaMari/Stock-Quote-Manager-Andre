@@ -1,0 +1,9 @@
+version: '2'
+services:
+  #stockQuoteManager
+  stockquotemanager:
+    ports:
+      - '8081:8081'
+    container_name: stock-quote-manager
+    image: sormach/inateltemp
+

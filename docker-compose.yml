@@ -1,0 +1,32 @@
+version: '2'
+networks:
+  default:
+    external: true
+    name: stockConnection
+services:
+  #Mysql
+  db:
+    container_name: mysql8
+    image: mysql:8.0
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: bootdb
+      MYSQL_ROOT_PASSWORD: root
+
+  #stockManager
+  stockmanager:
+    container_name: stock-manager
+    image: lucasvilela/stock-manager
+    ports:
+      - '8080:8080'
+  #stockQuoteManager
+  stockquotemanager:
+    depends_on:
+      - db
+    ports:
+      - '8081:8081'
+    container_name: stock-quote-manager
+    image: sormach/inateltemp
+
+
